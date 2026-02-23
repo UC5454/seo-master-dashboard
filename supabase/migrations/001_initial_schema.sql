@@ -139,6 +139,62 @@ ALTER TABLE aio_citations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE api_configs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
 
+-- RLSポリシー: 認証済みユーザーにフルアクセスを許可（初期は千葉さん1ユーザー運用）
+-- 将来マルチテナント化する場合は user_id カラム追加 + auth.uid() ベースのポリシーに変更
+
+CREATE POLICY "authenticated_select" ON strategies FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON strategies FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON strategies FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON strategies FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON keywords FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON keywords FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON keywords FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON keywords FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON keyword_clusters FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON keyword_clusters FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON keyword_clusters FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON keyword_clusters FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON competitors FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON competitors FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON competitors FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON competitors FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON articles FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON articles FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON articles FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON articles FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON article_revisions FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON article_revisions FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON article_revisions FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON article_revisions FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON rank_history FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON rank_history FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON rank_history FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON rank_history FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON analytics_snapshots FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON analytics_snapshots FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON analytics_snapshots FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON analytics_snapshots FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON aio_citations FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON aio_citations FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON aio_citations FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON aio_citations FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON api_configs FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON api_configs FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "authenticated_update" ON api_configs FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "authenticated_delete" ON api_configs FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "authenticated_select" ON audit_logs FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated_insert" ON audit_logs FOR INSERT TO authenticated WITH CHECK (true);
+
 -- インデックス
 CREATE INDEX idx_keywords_cluster ON keywords(cluster_id);
 CREATE INDEX idx_keywords_status ON keywords(status);
